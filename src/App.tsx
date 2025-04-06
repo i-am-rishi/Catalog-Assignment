@@ -8,10 +8,7 @@ import {
   filters,
   endPrice,
   actionBar,
-  startPrice,
   listOfContents,
-  percentageChange,
-  priceChangeString,
 } from "../static-assets/constants";
 
 import {
@@ -27,6 +24,12 @@ import {
 function App() {
   const [selectedFilter, setSelectedFilter] = useState("3d");
   const [selectedContent, setSelectedContent] = useState("Chart");
+
+  const startPrice = Math.floor(Math.random() * 50000) + 10000;
+  const priceChange = endPrice - startPrice;
+  const percentageChange = ((priceChange / startPrice) * 100).toFixed(2);
+  const priceChangeString =
+    priceChange > 0 ? `+${priceChange.toFixed(2)}` : priceChange.toFixed(2);
 
   const chartData = [
     { name: "Day 1", price: startPrice },
