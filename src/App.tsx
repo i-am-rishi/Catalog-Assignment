@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 import "./index.css";
 
@@ -25,20 +25,27 @@ function App() {
   const [selectedFilter, setSelectedFilter] = useState("3d");
   const [selectedContent, setSelectedContent] = useState("Chart");
 
-  const startPrice = Math.floor(Math.random() * 50000) + 10000;
+  const startPrice = useMemo(
+    () => Math.floor(Math.random() * 50000) + 10000,
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [selectedFilter]
+  );
   const priceChange = endPrice - startPrice;
   const percentageChange = ((priceChange / startPrice) * 100).toFixed(2);
   const priceChangeString =
     priceChange > 0 ? `+${priceChange.toFixed(2)}` : priceChange.toFixed(2);
 
-  const chartData = [
-    { name: "Day 1", price: startPrice },
-    ...Array.from({ length: 18 }, (_, i) => ({
-      name: `Day ${i + 2}`,
-      price: Math.floor(Math.random() * 50000) + 10000,
-    })),
-    { name: "Day 20", price: endPrice },
-  ];
+  const chartData = useMemo(() => {
+    return [
+      { name: "Day 1", price: startPrice },
+      ...Array.from({ length: 18 }, (_, i) => ({
+        name: `Day ${i + 2}`,
+        price: Math.floor(Math.random() * 50000) + 10000,
+      })),
+      { name: "Day 20", price: endPrice },
+    ];
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedFilter]);
 
   return (
     <div className="">

@@ -2,7 +2,6 @@ import {
   faPlusCircle,
   faUpRightAndDownLeftFromCenter,
 } from "@fortawesome/free-solid-svg-icons";
-// import { useMemo } from "react";
 
 export const listOfContents = [
   "Summary",
